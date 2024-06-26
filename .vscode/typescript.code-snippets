@@ -1,0 +1,157 @@
+{
+    "Create dialog constructor": {
+      "prefix": "x-dialog-constructor",
+      "body": [
+        "import { Component } from \"@angular/core\";",
+        "import { FormDirtyConfirm } from \"@uofx/core\";",
+        "import { UofxDialog, UofxDialogController } from \"@uofx/web-components/dialog\";",
+        "",
+        "@Component({",
+        " selector: 'component-selector',",
+        " templateUrl: './current.dialog.html',",
+        " styleUrls: ['./current.dialog.scss']",
+        "})",
+        "export class ComponentDialog extends UofxDialog {",
+        "   constructor(private dialogCtrl: UofxDialogController) {",
+        "     super();",
+        "   }",
+        "}"
+      ],
+      "description": "建立Dialog 需import、implements、constructor樣板"
+    },
+    "Dialog Create": {
+      "prefix": "x-dialogCtrl create",
+      "body": [
+        "this.dialogCtrl.create({",
+        "  component: ComponentDialog,",
+        "  size: 'large',",
+        "  params: {",
+        "    ${1} /*開窗要帶的參數*/",
+        "  }",
+        "}).afterClose.subscribe({",
+        "  next: res => {",
+        "  /*關閉視窗後處理的訂閱事件*/",
+        "  if (res) { ${2} }",
+        "}",
+        "});"
+      ],
+      "description": "建立DialogCreate開窗様板"
+    },
+    "Dialog Create FullScreen": {
+      "prefix": "x-dialogCtrl createFullScreen",
+      "body": [
+        "this.dialogCtrl.createFullScreen({",
+        "  component: ComponentDialog,",
+        "  params: {",
+        "    ${1} /*開窗要帶的參數*/",
+        "  }",
+        "}).afterClose.subscribe({",
+        "  next: res => {",
+        "  /*關閉視窗後處理的訂閱事件*/",
+        "  if (res) { ${2} }",
+        "}",
+        "});"
+      ],
+      "description": "建立DialogCreateet滿版開窗様板"
+    },
+    "Dialog Create FlexibleScreen": {
+      "prefix": "x-dialogCtrl createFlexibleScreen",
+      "body": [
+        "this.dialogCtrl.createFlexibleScreen({",
+        "  component: ComponentDialog,",
+        "  params: {",
+        "    ${1} /*開窗要帶的參數*/",
+        "  }",
+        "}).afterClose.subscribe({",
+        "  next: res => {",
+        "  /*關閉視窗後處理的訂閱事件*/",
+        "  if (res) { ${2} }",
+        "}",
+        "});"
+      ],
+      "description": "建立DialogCreateet90%滿版開窗様板"
+    }
+    ,
+    "Delete Table Select Item": {
+      "prefix": "x-ptable deleteSelectedItem",
+      "body": [
+        "deleteSelectedItem() {",
+        "  // this.selectedItem為勾選項目清單 請宣告全域變數.selectedItem=[]",
+        "  // this.gridData 請宣告全域變數.gridData:Array<any>=[]",
+        "  this.gridData = this.gridData.filter(item => !this.selectedItems.includes(item));",
+        "  this.gridData.map((p, index) => {",
+        "    p.no = index + 1;",
+        "  });",
+        "  this.selectedItems = [];",
+        "}"
+      ],
+      "description": "使用Grid需import清單"
+    }
+   
+    ,
+    "X CreateService": {
+      "prefix": "x-CreateService",
+      "body": [
+        "import { BasicApiService } from \"./basic-api.service\";",
+        "import { Injectable } from \"@angular/core\";",
+        "",
+        "//記得要在外掛欄位Module的BASIC_SERVICES注入Service",
+        "",
+        "@Injectable()",
+        "export class ServiceName extends BasicApiService {",
+        "",
+        "",
+        "get() {",
+        "  return this.http.get<any>(\"URL\");",
+        "};",
+       
+        "}"
+
+      ],
+      "description": "建立服務器樣板"
+    }
+,
+    "X CreatModalConstructor": {
+      "prefix": "x-CreatModalConstructor",
+      "body": [
+        "constructor(public modalController: ModalController, private cdr: ChangeDetectorRef){}",
+        "",
+        "",
+        "//設定要回傳的參數",
+        "dismiss() {",
+        "this.modalController.dismiss({",
+        "  'dismissed': true",
+        "    });",
+        "  }",
+      ],
+      "description": "建立tModalConstructor樣板"
+    }
+    ,
+    "X CreatModal": {
+      "prefix": "x-CreatModal",
+      "body": [
+        "openModal() {",
+        "   this.presentModal().then(res => {",
+        "      res.onWillDismiss().then(resM => {",
+               "//關閉視窗帶回的參數resM.data",
+               "this.cdr.detectChanges();",
+        "       });",
+        "    });",
+        "}",
+        "",
+        "async presentModal() {",
+        "   const modal = await this.modalController.create({",
+        "    component: Component,",
+        "    cssClass: 'my-custom-class',",
+        "    swipeToClose: true,",
+        "     componentProps:{",
+        "        //傳給Modal參數",
+        "       }",
+        "     });",
+        "    await modal.present();",
+        "    return modal;",
+        "}",
+      ],
+      "description": "開啟Modal"
+    }
+  }

@@ -1,0 +1,12 @@
+{
+  "$schema": "../node_modules/@uofx/plugin/schema/plugin-versions.schema.json",
+  "versions": [
+    {
+      "version": "1.0",
+      "minimumUOFXVersion": "2.94.0",
+      "changelog": [
+
+      ]
+    }
+  ]
+}

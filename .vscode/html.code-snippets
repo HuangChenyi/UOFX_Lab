@@ -1,0 +1,185 @@
+{
+	"X Dialog": {
+	  "prefix": "x-dialog",
+	  "body": [
+		"<p-dialog #pDialog [(visible)]=\"visible\" >",
+		"  <ng-template pTemplate=\"header\">",
+		"    <uofx-dialog-header>",
+		"       <!-- Dialog 表頭顯示處理 -->",
+		"     </uofx-dialog-header>",
+		"  </ng-template>",
+		"  <ng-template pTemplate=\"content\">",
+		"    <uofx-dialog-body>",
+		"      <div class=\"padding-3x\">",
+		"         <!-- Dialog 表身顯示處理 -->",
+		"         <!-- 通常是放明細內容或需編輯內容-->",
+		"      </div>",
+		"    </uofx-dialog-body>",
+		"  </ng-template>",
+		"  <ng-template pTemplate=\"footer\">",
+		"    <uofx-dialog-footer>",
+		"         <!-- Dialog 表尾顯示處理 -->",
+		"         <!-- 通常是放Button(EX:確定、關閉視窗.....) -->",
+		"    </uofx-dialog-footer>",
+		"  </ng-template>",
+		"</p-dialog>"
+	  ],
+	  "description": "建立X Dialog Html樣板"
+	},
+	"X PTable": {
+	  "prefix": "x-ptable",
+	  "body": [
+		
+
+					"<p-table [value]=\"gridData\" styleClass=\"p-datatable-gridlines\" [scrollable]=\"true\"",
+					"  [(selection)]=\"selectedItems\"",
+					"  [rowHover]=\"true\"  [rows]=\"10\" [paginator]=\"true\" [showCurrentPageReport]=\"true\"",
+					"  [alwaysShowPaginator]=\"false\"",
+					"  currentPageReportTemplate=\"{currentPage} of {totalPages} pages ({totalRecords} items)\">",
+					"  <ng-template pTemplate=\"emptymessage\">",
+					"    <tr class=\"datatable-empty\">",
+					"      <td>",
+					"        <span [translate]=\"'global.comm.grid.empty'\"></span>",
+					"      </td>",
+					"    </tr>",
+					"  </ng-template>",
+					"  <ng-template pTemplate=\"header\">",
+					"    <tr>",
+					"      <th width=\"80px\" class=\"text-center\">No.</th>",
+					"      <th width=\"40px\" *ngIf=\"editable\" class=\"text-center\">",
+					"        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>",
+					"      </th>",
+					"      <th>columnName1</th>",
+					"      <th>columnName2</th>",
+					"    </tr>",
+					"  </ng-template>",
+					"  <ng-template pTemplate=\"body\" let-item>",
+					"    <tr>",
+					"      <td class=\"text-center\">",
+					"        {{item.no}}",
+					"      </td>",
+					"      <td *ngIf=\"editable\" class=\"text-center\">",
+					"        <p-tableCheckbox [value]=\"item\"></p-tableCheckbox>",
+					"      </td>",
+					"      <td>",
+					"        {{ item.columnName1 }}",
+					"      </td>",
+					"      <td>",
+					"        {{ item.columnName2 }}",
+					"      </td>",
+					"    </tr>",
+					"  </ng-template>",
+					"</p-table>"
+
+	  ],
+	  "description": "建立p-table樣板"
+	}
+
+	,
+	"X PTableScss": {
+		"prefix": "x-ptable-scss",
+		"body": [
+			"@import 'shared/colors';",
+			"@import 'shared/fonts';",
+			"@import 'shared/scrollbar';",
+			"",
+			":host {",
+			"  ::ng-deep {",
+			"    .fw-grid-write {",
+			"      .p-datatable-table {",
+			"        table-layout: fixed;",
+			"",
+			"        .p-datatable-thead {",
+			"          th {",
+			"            background-color: #4669ac; // 預設特規色;",
+			"            color: get-color(w-50);",
+			"          }",
+			"        }",
+			"",
+			"        .p-datatable-tfoot {",
+			"          tr {",
+			"            &:first-child td {",
+			"              // 特殊色沒定義在guideline",
+			"              background-color: #fff8e6;",
+			"            }",
+			"",
+			"            &:last-child td {",
+			"              // 特殊色沒定義在guideline",
+			"              background-color: #f0faec;",
+			"              border-top-width: 0 !important;",
+			"            }",
+			"          }",
+			"        }",
+			"      }",
+			"",
+			"      .p-paginator {",
+			"        border: 1px solid get-color(gr-300);",
+			"        border-top-width: 0;",
+			"        border-radius: 0;",
+			"      }",
+			"    }",
+			"  }",
+			"}"
+		],
+		"description": "建立p-table scss樣板"
+	}
+	,
+	"X Button": {
+	  "prefix": "x-Button",
+	  "body": [
+		"<button",
+		"   class=\"e-btn u-btn-primary buttons-opposite\" ",
+		"    data-ripple=\"true\"",
+		"   (click)=\"\">",
+		" </button>"
+	  ],
+	  "description": "通用Button樣板"
+	}
+	,
+	"X Loading": {
+	  "prefix": "x-Loading",
+	  "body": [
+		"<ng-container *ngIf=\"!isLoading else templateLoading\">",
+		"  // 這裡是放明細內容或需編輯內容",
+		"</ng-container>",
+		"",
+		"<ng-template #templateLoading>",
+		"  <uofx-loading></uofx-loading>",
+		"</ng-template>"
+	  ],
+	  "description": "X-Loading樣板"
+	}
+
+	,
+	"X Modal": {
+	  "prefix": "x-Modal",
+	  "body": [
+		"<ion-header translucent>",
+		"   <ion-toolbar> ",
+		"        <ion-title>清單</ion-title>",
+		"        <ion-buttons slot=\"end\">",
+		"             <ion-button (click)=\"dismiss()\">Close</ion-button>",
+		"        </ion-buttons> ",
+		"   </ion-toolbar>",
+		"</ion-header>",
+		"<ion-content>"
+	  ],
+	  "description": "通用Modal樣板"
+	}
+	,
+	"X List": {
+	  "prefix": "x-List",
+	  "body": [
+		"<ion-item",
+		"   *ngFor=\"let item of searchResult; let i = index\"",
+		"       (click)=\"selectItem(item)\" >",
+		"        <ion-label>",
+		"             <h2></h2>",
+		"        </ion-label>",
+		"   </ion-item>",
+		"</ion-header>",
+		"</ion-list>"
+	  ],
+	  "description": "通用ioniclist樣板"
+	}
+  }
