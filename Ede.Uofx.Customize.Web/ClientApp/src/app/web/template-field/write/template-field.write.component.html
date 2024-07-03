@@ -6,7 +6,8 @@
 <ng-container *ngIf="isLoading else templateForm;">
   <ng-container *ngTemplateOutlet="templateLoading"></ng-container>
 </ng-container>
-{{form.value | json}}
+{{this.isLoading}}
+{{this.account}}
 <ng-template #templateForm>
   <div class="fw-control">
     <ng-container *ngIf="editable else templateDisable;">
@@ -21,6 +22,7 @@
 <ng-template #templateLoading>
   <div class="padding-left">
     <p-skeleton class="padding" width="50%" height="2rem" styleClass="mb-2"></p-skeleton>
+    <p-skeleton class="padding" width="100%" height="2rem" styleClass="mb-2"></p-skeleton>
     <p-skeleton class="padding" width="100%" height="2rem" styleClass="mb-2"></p-skeleton>
     <p-skeleton class="padding" width="70%" height="2rem" styleClass="mb-2"></p-skeleton>
   </div>
@@ -57,13 +59,13 @@
           formControlName="startTime"
           [showIcon]="true"
           [showButtonBar]="true"
-          [showTime]="true"
+          [showTime]="true" dataType="string"
           [readonlyInput]="true"
           dateFormat="yy/mm/dd" hourFormat="24" appendTo="body"
           [style]="{'width':'100%'}"
           placeholder="請選擇開始時間"
         ></p-calendar>
-        <uofx-form-error-tip [control]="form?.controls.startDate">
+        <uofx-form-error-tip [control]="form?.controls.startTime">
         </uofx-form-error-tip>
       </div>
     </div>
@@ -76,13 +78,13 @@
           formControlName="endTime"
           [showIcon]="true"
           [showButtonBar]="true"
-          [showTime]="true"
+          [showTime]="true" dataType="string"
           [readonlyInput]="true"
           dateFormat="yy/mm/dd" hourFormat="24" appendTo="body"
           [style]="{'width':'100%'}"
           placeholder="請選擇結束時間"
         ></p-calendar>
-        <uofx-form-error-tip [control]="form?.controls.startDate">
+        <uofx-form-error-tip [control]="form?.controls.endTime">
         </uofx-form-error-tip>
       </div>
     </div>
@@ -96,7 +98,7 @@
         formControlName="leaveHours" [style]="{'width':'100%'}" placeholder="請輸入請假時數"
           ></p-inputNumber>
           時
-        <uofx-form-error-tip [control]="form?.controls.startDate">
+        <uofx-form-error-tip [control]="form?.controls.leaveHours">
         </uofx-form-error-tip>
       </div>
     </div>
@@ -110,7 +112,7 @@
        formControlName="agent"
 
        ></uofx-user-select>
-        <uofx-form-error-tip [control]="form?.controls.startDate">
+        <uofx-form-error-tip [control]="form?.controls.agent">
         </uofx-form-error-tip>
       </div>
     </div>
@@ -118,6 +120,13 @@
     <div style="color: red;">
       {{errorMsg}}
     </div>
+
+    <uofx-error-block
+  [uofErrorI18nKeys]="transErrorCodes"
+  [showClose]="true"
+  [showHeader]="true"
+  [textEllipsis]="true">
+</uofx-error-block>
   </div>
 </ng-template>
 

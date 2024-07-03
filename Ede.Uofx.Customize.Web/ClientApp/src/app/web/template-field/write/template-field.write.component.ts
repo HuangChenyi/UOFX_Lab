@@ -22,6 +22,7 @@ import { UofxUserSetItemType, UofxUserSetModel } from '@uofx/web-components/user
 import { Settings } from '@uofx/core';
 import { TemplateFieldExProps } from '../props/template-field.props.component';
 import { UofxDateFormatPipe } from '@uofx/web-components/pipes';
+import { UofxPluginApiService } from '@uofx/plugin/api';
 
 /*修改*/
 /*↑↑↑↑修改import 各模式的Component↑↑↑↑*/
@@ -47,7 +48,8 @@ export class TemplateFieldWriteComponent
   constructor(
     private cdr: ChangeDetectorRef,
     private fb: UntypedFormBuilder,
-    private tools: UofxFormTools
+    private tools: UofxFormTools,
+    private pluginService: UofxPluginApiService,
   ) {
     super();
   }
@@ -59,13 +61,19 @@ export class TemplateFieldWriteComponent
   systemTime = new Date();
   isLoading = true;
   corpId = Settings.UserInfo.corpId;
+  userId= Settings.UserInfo.id;
+  account: string;
   types: Array<UofxUserSetItemType> = [UofxUserSetItemType.Empl];
   selectedUserSet: Array<UofxUserSetModel> = [];
   value:LeaveInfo;
-
+  transErrorCodes:Array<string>=[];
   ngOnInit(): void {
 
+    this.getUserInfo(this.userId);
+
     this.initForm();
+
+
 
     this.parentForm.statusChanges.subscribe((res) => {
       if (res === 'INVALID' && this.selfControl.dirty) {
@@ -81,10 +89,27 @@ export class TemplateFieldWriteComponent
     this.form.valueChanges.subscribe((res) => {
       this.selfControl?.setValue(res);
       /*真正送出欄位值變更的函式*/
+      console.log(res);
       this.valueChanges.emit(res);
     });
     this.cdr.detectChanges();
   }
+
+    /** 取得員工資訊 */
+    getUserInfo(userId: string) {
+      this.pluginService.getUserInfo(userId).subscribe({
+        next: empInfo => {
+          this.account=  empInfo.account;
+
+        },
+        complete: () => {
+
+            this.isLoading = false;
+
+
+        }
+      });
+    }
 
   initForm() {
 
@@ -92,21 +117,21 @@ export class TemplateFieldWriteComponent
     this.levTypeList.push({ id: '2', name: '事假' });
     this.levTypeList.push({ id: '3', name: '病假' });
 
-    this.isLoading = false;
-    console.log(this.value);
+
+
     this.form = this.fb.group({
-      leaveType: [this.value?.leaveType || '', Validators.required],
+      leaveType: [this.value?.leaveType || ''],
       leaveName: [this.value?.leaveName || ''],
-      leaveHours: [this.value?.leaveHours || 0, Validators.required],
-      agent: [this.value?.agent || '', Validators.required],
+      leaveHours: [this.value?.leaveHours || 0],
+      agent: [this.value?.agent || ''],
       startTime: [this.value?.startTime || this.dateFormat.transform(new Date(this.systemTime.getFullYear(),
         this.systemTime.getMonth(),
         this.systemTime.getDate(),
-        9), 'yyyy/MM/dd HH:mm'), Validators.required],
+        9), 'yyyy/MM/dd HH:mm')],
       endTime: [this.value?.endTime || this.dateFormat.transform(new Date(this.systemTime.getFullYear(),
         this.systemTime.getMonth(),
         this.systemTime.getDate(),
-        18), 'yyyy/MM/dd HH:mm'), Validators.required],
+        18), 'yyyy/MM/dd HH:mm')],
       applicant: [this.value?.applicant || Settings.UserInfo.account],
     });
 
@@ -160,14 +185,23 @@ export class TemplateFieldWriteComponent
   checkFieldValid(resolve) {
     this.setBeforeCheck(true);
     this.errorMsg = '';
+    this.transErrorCodes = [];
     //實作驗證邏輯
 
 
+    if(this.isLoading){
+      resolve(false);
 
-    if (false) {
-      this.errorMsg = '放入錯誤訊息';
+    }
+
+
+    if (this.form.value.endTime<this.form.value.startTime) {
+
+      this.errorMsg = '結束時間不可早於開始時間';
+      this.transErrorCodes.push('結束時間不可早於開始時間');
       resolve(false);
     } else {
+
       this.errorMsg = '';
       resolve(true);
     }
@@ -212,8 +246,8 @@ export interface ComboBoxItem {
 export interface LeaveInfo {
   leaveType: string;
   leaveName: string;
-   startTime: Date;
-   endTime: Date;
+   startTime: string;
+   endTime: string;
    leaveHours: number;
    agent: Array<UofxUserSetModel>;
    applicant:string;
