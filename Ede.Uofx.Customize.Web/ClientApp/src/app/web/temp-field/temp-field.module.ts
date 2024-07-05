@@ -16,16 +16,14 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
-import { HRService } from '@service/hrService';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
-import { TemplateFieldPropsComponent } from './props/template-field.props.component';
-import { TemplateFieldWriteComponent } from './write/template-field.write.component';
+import { TempFieldPropsComponent } from './props/temp-field.props.component';
+import { TempFieldWriteComponent } from './write/temp-field.write.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { UofxAvatarModule } from '@uofx/web-components/avatar';
 import { UofxButtonModule } from '@uofx/web-components/button';
 import { UofxDialogModule } from '@uofx/web-components/dialog';
 import { UofxIconModule } from '@uofx/web-components/icon';
@@ -33,7 +31,6 @@ import { UofxPluginApiService } from '@uofx/plugin/api';
 import { UofxTextareaModule } from '@uofx/web-components/textarea';
 import { UofxToastModule } from '@uofx/web-components/toast';
 import { UofxUserSelectModule } from '@uofx/web-components/user-select';
-import { UofxUserSetModel } from '@uofx/web-components/user-select';
 
 /*
 此為外掛欄位module的樣板，修改/置換的項事如下
@@ -60,9 +57,9 @@ const UOF_MODULES = [
   UofxIconModule,
 UofxLoadingModule,
   UofxToastModule,
+
   UofxTranslateModule,
   UofxUserSelectModule,
-  UofxAvatarModule,
   UofxTextareaModule,
   UofxButtonModule
 ];
@@ -70,7 +67,7 @@ UofxLoadingModule,
 /*修改*/
 /*置換component名稱*/
 
-const COMPONENTS = [TemplateFieldPropsComponent, TemplateFieldWriteComponent];
+const COMPONENTS = [TempFieldPropsComponent, TempFieldWriteComponent];
 
 const BASIC_SERVICES = [
   { provide: BASIC_HTTP_HANDLER, useClass: BasicHttpHandler },
@@ -88,33 +85,34 @@ const BASIC_SERVICES = [
     ReactiveFormsModule,
     RouterModule.forChild([
       { path: '', redirectTo: 'design', pathMatch: 'full' },
-      { path: 'design', component: TemplateFieldWriteComponent },
-      { path: 'props', component: TemplateFieldPropsComponent },
-      { path: 'write', component: TemplateFieldWriteComponent },
-      { path: 'view', component: TemplateFieldWriteComponent },
+      { path: 'design', component: TempFieldWriteComponent },
+      { path: 'props', component: TempFieldPropsComponent },
+      { path: 'write', component: TempFieldWriteComponent },
+      { path: 'view', component: TempFieldWriteComponent },
+      { path: 'print', component: TempFieldWriteComponent },
       //有app開發後再實作這段
       {
         path: 'app',
-        loadChildren: () => import('../../mobile/template-field/template-field.module').then(m => m.TemplateFieldAppModule)
+        loadChildren: () => import('../../mobile/temp-field/temp-field.module').then(m => m.TempFieldAppModule)
       }
     ]),
     TranslateModule.forChild(),
     ...PRIMENG_MODULES,
     ...UOF_MODULES,
   ],
-  providers: [BASIC_SERVICES, UofxPluginApiService,HRService],
+  providers: [BASIC_SERVICES, UofxPluginApiService],
   exports: [...COMPONENTS],
   declarations: [...COMPONENTS],
 })
 
 /*修改*/
 /*置換component名稱、class名稱*/
-export class TemplateFieldModule {
+export class TempFieldModule {
   static comp = {
-    props: TemplateFieldPropsComponent,
-    design: TemplateFieldWriteComponent,
-    write: TemplateFieldWriteComponent,
-    view: TemplateFieldWriteComponent,
-    print: TemplateFieldWriteComponent,
+    props: TempFieldPropsComponent,
+    design: TempFieldWriteComponent,
+    write: TempFieldWriteComponent,
+    view: TempFieldWriteComponent,
+    print: TempFieldWriteComponent,
   };
 }

@@ -1,11 +1,18 @@
-{
-
+﻿{
   "template-field": {
     "exposedModule": "./TemplateField",
     "moduleName": "TemplateFieldModule",
     "app": {
       "exposedModule": "./TemplateField",
       "moduleName": "TemplateFieldAppModule"
+    }
+  },
+  "temp-field": {
+    "exposedModule": "./TempField",
+    "moduleName": "TempFieldModule",
+    "app": {
+      "exposedModule": "./TempField",
+      "moduleName": "TempFieldAppModule"
     }
   }
 }

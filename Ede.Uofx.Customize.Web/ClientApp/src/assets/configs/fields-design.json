@@ -1,4 +1,4 @@
-{
+﻿{
   "fieldGroups": [
     {
       "code": "group1",
@@ -6,7 +6,6 @@
     }
   ],
   "fields": [
-
     {
       "group": "group1",
       "code": "template-field",
@@ -17,6 +16,18 @@
         "defaultRows": 1,
         "minCols": 1,
         "minRows": 1
+      }
+    },
+    {
+      "group": "group1",
+      "code": "temp-field",
+      "name": "temp",
+      "icon": "assets/icons/u-plugin-form.svg",
+      "sizeConfig": {
+        "defaultCols": "2",
+        "defaultRows": "1",
+        "minCols": "1",
+        "minRows": "1"
       }
     }
   ]

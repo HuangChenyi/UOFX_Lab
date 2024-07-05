@@ -23,12 +23,39 @@ namespace Ede.Uofx.Customize.Web.Service
         }
 
         /// <summary>
+        /// 連線字串
+        /// </summary>
+        public static string ConnectionStringHR
+        {
+            get
+            {
+                var configuration = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                    .Build();
+                return configuration.GetConnectionString("HR");
+            }
+        }
+
+        /// <summary>
         /// 取得連線交易區段
         /// </summary>
         /// <returns></returns>
         public static SqlTransaction GetTransaction()
         {
             SqlConnection conn = new SqlConnection(ConnectionString);
+            conn.Open();
+            return conn.BeginTransaction();
+        }
+
+
+        /// <summary>
+        /// 取得連線交易區段
+        /// </summary>
+        /// <returns></returns>
+        public static SqlTransaction GetTransaction(string connStr)
+        {
+            SqlConnection conn = new SqlConnection(connStr);
             conn.Open();
             return conn.BeginTransaction();
         }

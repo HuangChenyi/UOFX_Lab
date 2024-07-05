@@ -19,6 +19,7 @@ import { BpmFwWriteComponent, UofxFormTools } from '@uofx/web-components/form';
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { UofxUserSetItemType, UofxUserSetModel } from '@uofx/web-components/user-select';
 
+import { HRService } from '@service/hrService';
 import { Settings } from '@uofx/core';
 import { TemplateFieldExProps } from '../props/template-field.props.component';
 import { UofxDateFormatPipe } from '@uofx/web-components/pipes';
@@ -50,6 +51,7 @@ export class TemplateFieldWriteComponent
     private fb: UntypedFormBuilder,
     private tools: UofxFormTools,
     private pluginService: UofxPluginApiService,
+    private hrService:HRService
   ) {
     super();
   }
@@ -97,6 +99,8 @@ export class TemplateFieldWriteComponent
 
     /** 取得員工資訊 */
     getUserInfo(userId: string) {
+
+
       this.pluginService.getUserInfo(userId).subscribe({
         next: empInfo => {
           this.account=  empInfo.account;
@@ -104,8 +108,7 @@ export class TemplateFieldWriteComponent
         },
         complete: () => {
 
-            this.isLoading = false;
-
+          this.isLoading = false;
 
         }
       });
@@ -113,10 +116,17 @@ export class TemplateFieldWriteComponent
 
   initForm() {
 
-    this.levTypeList.push({ id: '1', name: '特休' });
-    this.levTypeList.push({ id: '2', name: '事假' });
-    this.levTypeList.push({ id: '3', name: '病假' });
-
+    this.isLoading = true;
+    this.hrService.serverUrl=this.pluginSetting.entryHost;
+    this.hrService.getLeaveType().subscribe({
+      next: res => {
+        this.levTypeList = res.map(x => ({ id: x.leaId, name: x.leaName }));
+      },
+      complete: () => {
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      }
+    });
 
 
     this.form = this.fb.group({

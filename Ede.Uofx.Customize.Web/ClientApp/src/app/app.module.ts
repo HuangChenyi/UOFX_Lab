@@ -55,7 +55,10 @@ const PRIMENG_MODULES = [];
         path: 'template-field',
         loadChildren: () => import('./web/template-field/template-field.module').then((m) => m.TemplateFieldModule)
       }
-      //勿刪除存放module的路徑
+      ,{path: 'temp-field',
+        loadChildren: () => import('./web/temp-field/temp-field.module').then((m) => m.TempFieldModule)
+      }
+        //勿刪除存放module的路徑
     ]),
     ...I18NSERVICE_MODULES,
     ...PRIMENG_MODULES,

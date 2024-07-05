@@ -1,0 +1,55 @@
+<div>
+  <uofx-form-field-name [name]="name" [required]="required">
+  </uofx-form-field-name>
+</div>
+<div class="fw-control">
+  <table [formGroup]="form">
+    <tr>
+      <!-- hello world 顯示歡迎訊息 -->
+      <th colspan="3">
+        <span n *ngIf="exProps?.isShowHelloWorld ? true : false"
+          >hello 外掛欄位 write mode</span
+        >
+      </th>
+    </tr>
+    <tr>
+      <td colspan="3">
+
+        <input type="text" pInputText formControlName="message"/>
+
+        <uofx-form-error-tip [control]="form?.controls.message">
+        </uofx-form-error-tip>
+      </td>
+    </tr>
+  </table>
+  <div style="color: red;">
+    {{errorMsg}}
+  </div>
+
+  <ng-container *ngIf="isLoading else templateForm;">
+    <ng-container *ngTemplateOutlet="templateLoading"></ng-container>
+  </ng-container>
+  {{form.value | json}}
+  <ng-template #templateForm>
+    <div class="fw-control">
+      <ng-container *ngIf="editable ">else templateDisable;
+        <ng-container >*ngTemplateOutlet="templateEditable"</ng-container>
+      </ng-container>
+    </div>
+  </ng-template>
+
+
+
+  <!-- 載入中 -->
+  <ng-template #templateLoading>
+    <div class="padding-left">
+      <p-skeleton class="padding" width="50%" height="2rem" styleClass="mb-2"></p-skeleton>
+      <p-skeleton class="padding" width="100%" height="2rem" styleClass="mb-2"></p-skeleton>
+      <p-skeleton class="padding" width="70%" height="2rem" styleClass="mb-2"></p-skeleton>
+    </div>
+  </ng-template>
+
+
+</div>
+
+

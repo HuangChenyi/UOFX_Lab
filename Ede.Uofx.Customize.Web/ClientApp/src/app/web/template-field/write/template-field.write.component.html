@@ -6,8 +6,7 @@
 <ng-container *ngIf="isLoading else templateForm;">
   <ng-container *ngTemplateOutlet="templateLoading"></ng-container>
 </ng-container>
-{{this.isLoading}}
-{{this.account}}
+{{form.value | json}}
 <ng-template #templateForm>
   <div class="fw-control">
     <ng-container *ngIf="editable else templateDisable;">
@@ -22,7 +21,6 @@
 <ng-template #templateLoading>
   <div class="padding-left">
     <p-skeleton class="padding" width="50%" height="2rem" styleClass="mb-2"></p-skeleton>
-    <p-skeleton class="padding" width="100%" height="2rem" styleClass="mb-2"></p-skeleton>
     <p-skeleton class="padding" width="100%" height="2rem" styleClass="mb-2"></p-skeleton>
     <p-skeleton class="padding" width="70%" height="2rem" styleClass="mb-2"></p-skeleton>
   </div>
