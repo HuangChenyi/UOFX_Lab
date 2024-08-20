@@ -14,7 +14,7 @@
         public string startTime { get; set; }
         public string endTime { get; set; }
         public double leaveHours { get; set; } = 0;
-        public string agent { get; set; }
+        public object agent { get; set; }
         public string applicant { get; set; }
     }
 }

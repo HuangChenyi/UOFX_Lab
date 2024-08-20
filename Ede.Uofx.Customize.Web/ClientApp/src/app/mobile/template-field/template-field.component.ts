@@ -5,8 +5,8 @@ import { UofxCameraPlugin, UofxGeolocationPlugin, UofxToastPlugin } from '@uofx/
 import { BpmFwWriteComponent } from '@uofx/app-components/form';
 import { ChangeDetectorRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { UofxFormTools } from '@uofx/web-components/form';
 import { Settings } from '@uofx/core';
+import { UofxFormTools } from '@uofx/web-components/form';
 import { UofxUserSetItemType } from '@uofx/app-components/user-select';
 
 @Component({
@@ -27,7 +27,7 @@ export class TemplateFieldComponent extends BpmFwWriteComponent implements OnIni
 
   corpId = Settings.UserInfo.corpId;
 types: Array<UofxUserSetItemType> = [UofxUserSetItemType.JobTitle];
-
+selectdate=new Date();
   ngOnInit(): void {
 
 

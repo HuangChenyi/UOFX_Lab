@@ -2,6 +2,7 @@ import { BASIC_HTTP_HANDLER, BasicHttpHandler } from '@service/basic-http-handle
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UofxCameraPlugin, UofxGeolocationPlugin, UofxToastPlugin } from '@uofx/app-native';
+import { UofxErrorBlockModule, UofxErrorTipModule, UofxFormFieldBaseModule } from '@uofx/app-components/form';
 
 import { BasicHttpClient } from '@service/basic-http-client';
 import { CommonModule } from '@angular/common';
@@ -9,13 +10,14 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { TempFieldComponent } from './temp-field.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { UofxErrorBlockModule, UofxErrorTipModule, UofxFormFieldBaseModule } from '@uofx/app-components/form';
 import { UofxPluginApiService } from '@uofx/plugin/api';
+import { UofxUserSelectModule } from '@uofx/app-components/user-select';
 
 const UOF_MODULES = [
     UofxErrorBlockModule,
     UofxErrorTipModule,
   UofxFormFieldBaseModule,
+  UofxUserSelectModule
 ];
 
 const BASIC_SERVICES = [

@@ -2,7 +2,7 @@
   <tr>
     <!-- hello world 顯示歡迎訊息 -->
     <th colspan="3">
-      <span n *ngIf="exProps?.isShowHelloWorld ? true : false"
+      <span  *ngIf="exProps?.isShowHelloWorld ? true : false"
         >hello 外掛欄位 write mode</span
       >
     </th>
@@ -12,9 +12,15 @@
 <ion-button></ion-button>
       <ion-input formControlName="message"></ion-input>
 
-      <uofx-form-error-tip [control]="form?.controls.message">
-      </uofx-form-error-tip>
+      <uofx-user-select
+    [corpId]="corpId"
+    [types]="types"
+    >
+</uofx-user-select>
 
+
+      <uofx-error-tip [control]="form.controls.message">
+      </uofx-error-tip>
 
     </td>
   </tr>
